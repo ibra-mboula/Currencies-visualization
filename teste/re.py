@@ -8,41 +8,41 @@ import requests
 # Function qui return les jours et les devises
 
 def getData(currencies, days=30):
-    
-    today = date.today()
-    start_day = today - timedelta(days=days)
+    end_date = date.today()
+    start_sate = end_date - timedelta(days=days)
 
     # f pour tout convertir en string
     # {','.join(currencies)} c'est pour avoir une list de dévise séparé par des virgules car l'adresse de base est :
     # https://api.exchangerate.host/timeseries?start_date=2021-12-31&end_date=2022-6-04&symbols=USD,EUR
 
     symbols = ','.join(currencies)
-    requete = f"https://api.exchangerate.host/timeseries?start_date={start_day}&end_date={today}&symbols={symbols}"
-    req = requests.get(requete)
+    requete = f"https://api.exchangerate.host/timeseries?start_date={start_sate}&end_date={end_date}&symbols={symbols}"
+    r = requests.get(requete)
 
     # récupération des valeurs associées à la clé rates voir screen thunder
-    # req.json() read tout le fichier json , get("read le contenu de rates")
-    api_rates = req.json().get("rates")
+    # r.json() read tout le fichier json , get("read le contenu de rates")
+    api_rates = r.json().get("rates")
 
     #Il faut recuperer la valeur de chques devise et l'associer à notre dictionnaire all_rate
     # pour chaques devise on cree des clés >> 'devise' : [] on va la remplir plustard ligne 50 for each_day
 
+
     # comprehension de dictionnaire
-    #all_data = {currency: [] for currency in currencies} # on cree un dictionaire avec des clé(depends du nbre de devise)
+    #all_rates = {currency: [] for currency in currencies} # on cree un dictionaire avec des clé(depends du nbre de devise)
 
     #creation de dictionnaire currencies vident pour  meilleur exploitation des data
-    all_data = dict()
+    all_rates = dict()
     for currency in currencies :
-        all_data[currency]=[]
-        #pprint(all_data) # {'CAD': [], 'USD': []}
+        all_rates[currency]=[]
+        #pprint(all_rates) # {'CAD': [], 'USD': []}
 
 
-    #pprint(all_data) # {'USD': []}    {'USD': [] , 'EUR': []}
+    #pprint(all_rates) # {'USD': []}    {'USD': [] , 'EUR': []}
 
     #recuperer la clé de tous les jours  que je classe avec sorted
     all_days = sorted(api_rates.keys())
     #pprint(all_days) #['2022-10-30',
-                      #'2022-10-31'....]
+                    #'2022-10-31'....]
 
     # on recupére pour chaques jours les valeurs de devise
     # pour associer les valeurs de chques devise à notre dictionnaire all_rate
@@ -66,21 +66,22 @@ def getData(currencies, days=30):
             #{'AUD': [1.55472,1.542442,1.544268,...
 
 
-            [all_data[currency].append(rate)] #on add toutes les value dans la keys currencies
+            [all_rates[currency].append(rate)] #on add toutes les value dans la keys currencies
 
 
-        #print(all_data)
+        #print(all_rates)
 
 
-    pprint(all_data)
+    pprint(all_rates)
 
-    return all_days, all_data
+    return all_days, all_rates
 
 # pour que cette condition ne soit pas exécuté lorsqu'on importe le module api
+
 if __name__ == '__main__':
+
     getData(currencies=["AUD","USD"])
 
    #days, rates =  getData(currencies=["AUD", "USD"])
    #pprint(days)
    #pprint(rates)
-
