@@ -17,34 +17,38 @@
 <body class="bg-dark">
   <div class="container-fluid">
       <div class="row justify-content-center">
-          <div class="col-md-10 col-lg-8 "> <!-- dimensionnement pour ecran smartphone ect... app responsive -->
-                
-            <canvas id="chart"></canvas>
+        {% for currency, data_currency in data.items%}   {% comment %} ici curency est la clé [USD; AUD...] et data_currency est la valeur associé à cette clé donc la valeur des devises ; data c'est le dictionnaire dans  vu {% endcomment %}
+          <div class="col-md-10 col-lg-6 "> <!-- dimensionnement pour ecran smartphone ect... app responsive -->
+            
+            <canvas id="chart-->{{currency}}"></canvas>
           </div>
+        {% endfor %}  
+
       </div>
   </div>
 
 
-
   <script>
 
-        var ctx = document.getElementById("chart");
+    {% for currency, data_currency in data.items%}  
+        var ctx = document.getElementById("chart-->{{currency}}");
  
             new Chart(ctx, {
             type: 'line',
             data: {
-                    labels: {{ days|safe }},
-                    datasets: [{
-                        label: "USD",
-                        data: {{data|safe}},
-                        fill: true,
-                        borderColor: 'rgb(51, 153, 128)'
+                    labels: {{ days|safe }}, // safe est un filtre utilisé ici car les data son converti par django en une sructure de string innutilisable voir en dessous
+                    datasets: [{        //>>>  labels: [&#x27;2022-11-12&#x27;, &#x27;2022-11-13&#x27;, &#x27;2022-11-14&#x27;, &#x27;2022-11-15&#x27;,
+                        label: "{{currency}}",
+                        data: {{data_currency|safe}}, //data est sous forme de list
+                        fill: true, // couleur //background graph
+                        borderColor: 'rgb(51, 153, 128)' ,
+                        //backgroundColor: "rgb(120,128,128)"
                     }]
                         
             }
                
         });
-        
+    {% endfor %}      
   </script>
 
 </body>

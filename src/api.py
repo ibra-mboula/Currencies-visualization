@@ -9,15 +9,15 @@ import requests
 
 def getData(currencies, days=30):
     
-    today = date.today()
-    start_day = today - timedelta(days=days)
+    _today = date.today()
+    start_day = _today - timedelta(days=days)
 
     # f pour tout convertir en string
     # {','.join(currencies)} c'est pour avoir une list de dévise séparé par des virgules car l'adresse de base est :
     # https://api.exchangerate.host/timeseries?start_date=2021-12-31&end_date=2022-6-04&symbols=USD,EUR
 
     symbols = ','.join(currencies)
-    requete = f"https://api.exchangerate.host/timeseries?start_date={start_day}&end_date={today}&symbols={symbols}"
+    requete = f"https://api.exchangerate.host/timeseries?start_date={start_day}&end_date={_today}&symbols={symbols}"
     req = requests.get(requete)
 
     # récupération des valeurs associées à la clé rates voir screen thunder
@@ -36,7 +36,7 @@ def getData(currencies, days=30):
         all_data[currency]=[]
         #pprint(all_data) # {'CAD': [], 'USD': []}
 
-
+ 
     #pprint(all_data) # {'USD': []}    {'USD': [] , 'EUR': []}
 
     #recuperer la clé de tous les jours  que je classe avec sorted
@@ -72,15 +72,15 @@ def getData(currencies, days=30):
         #print(all_data)
 
 
-    pprint(all_data)
+   # pprint(all_data)
 
     return all_days, all_data
 
 # pour que cette condition ne soit pas exécuté lorsqu'on importe le module api
 if __name__ == '__main__':
-    getData(currencies=["AUD","USD"])
+    #getData(currencies=["AUD","USD"])
 
-   #days, rates =  getData(currencies=["AUD", "USD"])
-   #pprint(days)
-   #pprint(rates)
+   days, rates =  getData(currencies=["AUD", "USD","CAD"] ,  days=5)
+   pprint(days)
+   pprint(rates)
 

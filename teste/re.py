@@ -80,7 +80,7 @@ def getData(currencies, days=30):
 
 if __name__ == '__main__':
 
-    getData(currencies=["AUD","USD"])
+    getData(currencies=["AUD","USD"], days=30)
 
    #days, rates =  getData(currencies=["AUD", "USD"])
    #pprint(days)
