@@ -18,8 +18,11 @@ from django.urls import path
 
 #pour lié l'url à la vu
 from myStocks.views import stocks
+from myStocks.views import home
 
 urlpatterns = [
+    
+    path("", home),
     path("ndays=<int:ndays>&&ncurrencies=<str:ncurrencies>", stocks), #page d'accueil mon url doit etre sous cette forme
     #2 param qui doivent etre les memes que ceux de la views si non erreur car c'est eu qui serront envoyé à la vu
     path('admin/', admin.site.urls),

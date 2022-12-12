@@ -28,3 +28,5 @@ def stocks(request, ndays = 30 , ncurrencies = "LaDeviseVoulu"  ):
                                                              #VU qu'on ne veut que les valeurs de USD on le met en crochet
 
 
+def home(request):
+    return HttpResponse("<h2>Welcome</h2> <H3> Try this url to visualize  data :  </H3> <p> <a href=' http://127.0.0.1:8000/ndays=30&&ncurrencies=AUD,USD,CAD,PHP '>RUN</a> </p>")
