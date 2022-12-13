@@ -15,7 +15,7 @@ def stocks(request, ndays = 30 , ncurrencies = "LaDeviseVoulu"  ):
     
     # la fonction render va nous retourner notre template, on lui passe
     # la requete de l'utilisateur et le chemin vers le html, et les variables utilisés dans l'index
-    
+     
    #Dans ma variable data qui sera utilisé dans l'index on envoie tout le dictionnaire complet rates
     return render (request,  "myStocks/index.html", context= {"data" : rates, "days" : days })
                                                             
