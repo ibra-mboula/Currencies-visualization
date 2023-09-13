@@ -12,6 +12,11 @@ I run the project using PyCharm. To run it yourself, follow these steps:
 
 Output
 ------
+Once you've started the server using the instructions above, you can view the result by navigating to:
+
+> http://127.0.0.1:8000/ndays=30&&ncurrencies=AUD,USD,CAD,GBP
+
+This will display Forex data for the past 30 days for the AUD, USD, CAD, and GBP currencies.
 
 This is the result:
 
